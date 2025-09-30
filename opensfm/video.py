@@ -132,11 +132,8 @@ def import_video_with_gpx(
 
                         # Interpolate GPS coordinates for this timestamp
                         try:
-                            lat, lon, bearing, ele = geotag_from_gpx.interpolate_lat_lon(points, frame_time)
-                            # Create a point tuple for EXIF tagging
-                            interpolated_point = (frame_time, lat, lon, ele)
                             geotag_from_gpx.add_exif_using_timestamp(
-                                filepath, [interpolated_point], timestamp=frame_time, orientation=orientation
+                                filepath, points, timestamp=frame_time, orientation=orientation
                             )
                         except ValueError as e:
                             print("Warning: Could not interpolate GPS for time {}: {}".format(frame_time, e))
